@@ -1,0 +1,5 @@
+#Byte Code
+__pycache__/
+
+#Environment
+env/
