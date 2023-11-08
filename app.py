@@ -16,15 +16,47 @@ ledStrip_args.add_argument("blue", type=int, help="blue color Value was not pass
 class LedStrip(Resource):
 
     def clear(self):
-        self.wipe(Color(0,0,0), 0)
+        self.colorWipe(Color(0,0,0), 0)
 
-    def wipe(self, color, seconds):
+### -- The following effects came from the Core Electronics strandtest.py: https://github.com/rpi-ws281x/rpi-ws281x-python/blob/master/examples/strandtest.py 
+
+    def colorWipe(self, color, seconds):
+        """Wipe color across display a pixel at a time."""
         for i in range(300):
             strip.setPixelColor(i, color)
             strip.show()
             time.sleep(seconds)
 
-    def post(self, effect):      
+    def wheel(self, pos):
+        """Generate rainbow colors across 0-255 positions."""
+        if pos < 85:
+            return Color(pos * 3, 255 - pos * 3, 0)
+        elif pos < 170:
+            pos -= 85
+            return Color(255 - pos * 3, 0, pos * 3)
+        else:
+            pos -= 170
+            return Color(0, pos * 3, 255 - pos * 3)
+        
+    def rainbow(self):
+        """Draw rainbow that fades across all pixels at once."""
+        for j in range(256):
+            for i in range(strip.numPixels()):
+                strip.setPixelColor(i, self.wheel((i+j) & 255))
+            strip.show()
+            time.sleep(20/1000.0)
+    
+    def rainbowCycle(self, iterations=5):
+        """Draw rainbow that uniformly distributes itself across all pixels."""
+        for j in range(256*iterations):
+            for i in range(strip.numPixels()):
+                strip.setPixelColor(i, self.wheel((int(i * 256 / strip.numPixels()) + j) & 255))
+            strip.show()
+            time.sleep(20/1000.0)
+            
+### -- End of Core Electronics effects
+
+    def post(self, effect):
         # the strip by setting each pixel to Color(0,0,0)  
         self.clear()
 
@@ -32,16 +64,21 @@ class LedStrip(Resource):
         args = ledStrip_args.parse_args()
 
         if(effect == "wipe"):
-            self.wipe(Color(args.red, args.green, args.blue), 0.01)
+            self.colorWipe(Color(args.red, args.green, args.blue), 0.01)
 
-        #NEED RANDOMIZE TO WORK WITH ANY EFFECT
         elif(effect == "randomize"):
             #generate random RGB color codes
             red = random.randint(0, 255)
             green = random.randint(0, 255)
             blue = random.randint(0, 255)
 
-            self.wipe(Color(red, green, blue), 0.01)
+            self.colorWipe(Color(red, green, blue), 0.01)
+
+        elif(effect == "rainbow"):
+            self.rainbow()
+
+        elif(effect == "rainbowCycle"):
+            self.rainbowCycle()
 
 api.add_resource(LedStrip, '/<string:effect>')
 
