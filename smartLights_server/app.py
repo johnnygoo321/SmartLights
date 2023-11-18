@@ -1,17 +1,23 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
 from rpi_ws281x import Adafruit_NeoPixel, Color
+from dotenv import load_dotenv
+import os
 import time
 import random
 import led_config as config
+import subprocess
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
+load_dotenv() 
 
 class LedStrip(Resource):
 
     def __init__(self):
-        self.reqparse = reqparse.RequestParser()
+        self.reqparse = reqparse.RequestParser()        
         self.reqparse.add_argument("red", type=int, help="red color value was not passed...")
         self.reqparse.add_argument("green", type=int, help="green color Value was not passed...")
         self.reqparse.add_argument("blue", type=int, help="blue color Value was not passed...")
@@ -23,7 +29,7 @@ class LedStrip(Resource):
         strip.show()
 
 ### -- The following effects came from the Core Electronics strandtest.py: https://github.com/rpi-ws281x/rpi-ws281x-python/blob/master/examples/strandtest.py 
-### -- Modifications to the logic have been made as part of this project
+### -- Modifications to the logic have been made as part of this project and additional customizations have been added
 
     def colorWipe(self, seconds, color=None, type=None):
         """Wipe color across display a pixel at a time."""
@@ -32,6 +38,19 @@ class LedStrip(Resource):
             strip.setPixelColor(i, color)
             strip.show()
             time.sleep(seconds)
+
+    def colorNoEffect(self, color):
+        """Set color across all pixels at the same time."""
+        for i in range(300):
+            strip.setPixelColor(i, color)
+        strip.show()    
+
+    def randomize(self):
+        """Randomize color across all pixels at the same time."""
+        for i in range(300):
+            color = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            strip.setPixelColor(i, color)
+        strip.show()
 
     def theaterChase(self, seconds, color=None, type=None, iterations=50):
         """Movie theater light style chaser animation."""
@@ -84,8 +103,13 @@ class LedStrip(Resource):
                     strip.setPixelColor(i+q, 0)
 
 ### -- End of Core Electronics effects
+
+    # def restart(self):
+    #     subprocess.run("shutdown -r 0", shell=True, check=True)
+    #     return "Restarting"
     
     def post(self, effect=None, type=None):
+
         #Clear the strip by setting each pixel to Color(0,0,0)  
         self.clear()
 
@@ -93,22 +117,22 @@ class LedStrip(Resource):
         args = self.reqparse.parse_args()
 
         if(effect == "wipe"):
-            if(type == 'randomize'):
-                self.colorWipe(0.01, type=type)
-            else:
-                self.colorWipe(0.01, Color(args.red, args.green, args.blue))
-
+            self.colorWipe(0.01, Color(args.red, args.green, args.blue))
+        
+        elif (effect == 'noEffect'):
+            self.colorNoEffect(Color(args.red, args.green, args.blue))
+        
         elif(effect == "rainbow"):
             self.rainbow()
 
         elif(effect == "rainbowCycle"):
             self.rainbowCycle()
+        
+        elif(effect == 'randomize'):
+            self.randomize()
 
         elif(effect == "theaterChase"):
-            if(type == 'randomize'):
-                self.theaterChase(0.01, type=type)
-            else:
-                self.theaterChase(0.01, Color(args.red, args.green, args.blue))
+            self.theaterChase(0.01, Color(args.red, args.green, args.blue))
         
         elif(effect == "theaterChaseRainbow"):
             self.theaterChaseRainbow(0.01)
@@ -124,4 +148,4 @@ if __name__ == '__main__':
     strip.begin()
 
     #Run the Server
-    app.run(debug=True)
+    app.run(host=os.environ.get("IPV4_ADDRESS_OF_PI"),debug=True, port=os.environ.get("PORT"))
