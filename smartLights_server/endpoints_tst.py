@@ -18,7 +18,7 @@ BASE = "http://" + os.environ.get("IPV4_ADDRESS_OF_PI") + ":" + os.environ.get("
 #response = requests.post(BASE + "/wipe/randomize")
 #print(response.json())
 
-# response = requests.post(BASE + "/rainbowCycle")
+# response = requests.post(BASE + "/rainbow", json={})
 # print(response.json())
 
 response = requests.post(BASE + "/clear", json={})
