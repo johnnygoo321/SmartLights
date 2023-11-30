@@ -89,7 +89,16 @@ pip3 install requirements.txt
 Update the configuration as needed in the **smartLights_server/led_config.py** file. 
 In reality, you probably only need to change the LED_COUNT and can play around with the LED_BRIGHTNESS.
 
-https://github.com/johnnygoo321/SmartLights/blob/491c97d671964ce35bc1f0f61a949e27319120fe/smartLights_server/led_config.py#L1C1-L8C69
+```python
+# LED STRIP DEFAULT CONFIGURATION
+LED_COUNT      = 300     # Number of LED's.
+LED_PIN        = 18      # GPIO PWM pin connected to the pixels.
+LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
+LED_DMA        = 10      # DMA channel to use for generating a signal (try 10)
+LED_BRIGHTNESS = 25      # Set to 0 for darkest and 255 for brightest
+LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
+LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
+```
 
 On top of that, you are going to want to create a .env file in the root of the smartLights_app and smartLights_server folders
 
