@@ -2,6 +2,8 @@
 
 👋 Welcome to the Smart Lights app!
 
+**Creator:** [@johnnycodes_](https://www.instagram.com/johnnycodes_/)
+
 ### **Background:**
 
 This project was created with the purpose of locally being able to control an addressable led strip through a Raspberry Pi. We could of used a WLED controller to make things a bit easier, but as a challenge I decided to create my own full stack app 😅.
@@ -25,12 +27,15 @@ For the frontend I used **Expo** which allows me to create a mobile app that wor
 3. [Cloning the Repo & Getting Started](#cloning-the-repo--getting-started)
 4. [LED Strip Configuration File](#led-strip-configuration-file)
 5. [Running the app (Locally)](#running-the-app-locally)
+6. [License](#license)
+7. [Found an issue](#found-an-issue)
+8. [Have a question](#have-a-question)
 
 ## Hardware
 
 **Please keep in mind these are the items I purchased for this project, you do not have to get the same ones.**
 
-(1) Raspberry Pi 4: [Pi4 64bit 4GB](https://www.amazon.com/Raspberry-Model-2019-Quad-Bluetooth/dp/B07TC2BK1X/ref=sr_1_3?crid=PIVQ34NEUCQ2&keywords=raspberry%2Bpi%2B4&qid=1701222101&sprefix=raspberry%2Bpi%2B4%2Caps%2C105&sr=8-3&th=1) - This is only the PI, but a Micro SD and Power Supply will be needed)
+(1) Raspberry Pi 4: [Pi4 64bit 4GB](https://www.amazon.com/Raspberry-Model-2019-Quad-Bluetooth/dp/B07TC2BK1X/ref=sr_1_3?crid=PIVQ34NEUCQ2&keywords=raspberry%2Bpi%2B4&qid=1701222101&sprefix=raspberry%2Bpi%2B4%2Caps%2C105&sr=8-3&th=1) - This is only the PI, but a Micro SD and Power Supply will be needed).
 
 (2) Addressable LED Strip: [WS2812B RGB Strip](https://www.amazon.com/dp/B088FK8NG6?ref=ppx_yo2ov_dt_b_product_details&th=1) - I purchased the White IP67 300LED solely because I like how they look.
 
@@ -86,6 +91,21 @@ In reality, you probably only need to change the LED_COUNT and can play around w
 
 https://github.com/johnnygoo321/SmartLights/blob/491c97d671964ce35bc1f0f61a949e27319120fe/smartLights_server/led_config.py#L1C1-L8C69
 
+On top of that, you are going to want to create a .env file in the root of the smartLights_app and smartLights_server folders
+
+```
+smartLights_app .env file contents:
+
+IPV4_ADDRESS_OF_PI=http://192.xxx.x.xx
+SERVER_PORT=5000
+```
+```
+smartLights_server .env file contents:
+
+IPV4_ADDRESS_OF_PI=192.xxx.x.xx
+PORT=5000
+```
+
 ## Running the App (Locally)
 
 Now that we have the initial setup, let's run this thing! Althought this is a single project, it is best to run the backend in a virutal environment.
@@ -106,3 +126,13 @@ In a separate terminal start the frontend application (keep in mind you need to 
 ```
 npx start expo
 ```
+Now you can interact with the lights through your mobile device!
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/johnnygoo321/SmartLights/blob/73180602de507baa635b0abe68ac369f08fd7ed6/LICENSE.md) file for details
+
+## Found an issue
+If you have found an issue, please feel free to raise a Pull Request 😊.
+
+## Have a question
+Hit me up on Instagram [@johnnycodes_](https://www.instagram.com/johnnycodes_/)
