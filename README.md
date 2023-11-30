@@ -43,6 +43,13 @@ For the frontend I used **Expo** which allows me to create a mobile app that wor
 
 (4) Jumper Wires: [Haitronic Wires](https://www.amazon.com/gp/product/B01LZF1ZSZ/ref=ppx_yo_dt_b_asin_title_o06_s01?ie=UTF8&psc=1)
 
+(5) Micro SD Reader: With the command below, check which OS version your PI is running. If it is running as 32bit (armv7l), then we will need to upgrade to 64bit to run React Native.
+Ensure it can be upgraded to 64bit, then follow the tutorial here: [Raspberry Pi 64 bit install](https://www.youtube.com/watch?v=4_j5lcQEvG4)
+
+```
+uname -m
+```
+
 ## Design
 
 ... insert image...
@@ -121,7 +128,7 @@ Now that we have the initial setup, let's run this thing! Althought this is a si
 This will help prevent package versioning issues across many projects.
 
 ```
-sudo python3 -m venv venv
+sudo python3 -m venv .venv
 source .venv/bin/activate
 ```
 Start the backend server... First run pwd to get the working directory. We will use this to run the venv with root privledges.
