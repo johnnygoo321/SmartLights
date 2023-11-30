@@ -22,14 +22,9 @@ For the frontend I used **Expo** which allows me to create a mobile app that wor
 
 1. [Hardware Used w/Links](#hardware)
 2. [Design](#design)
-3. [Cloning the Repo & Getting Started](#cloning-the-repo)
-4. [LED Strip Backend Python Config](#led-strip-python-configuration)
-
-...
-
-...
-
-...
+3. [Cloning the Repo & Getting Started](#cloning-the-repo--getting-started)
+4. [LED Strip Configuration File](#led-strip-configuration-file)
+5. [Running the app (Locally)](#running-the-app-locally)
 
 ## Hardware
 
@@ -81,12 +76,33 @@ npm install
 - cd into smartLights_server on the other
 
 ```
-pip install requirements.txt
+pip3 install requirements.txt
 ```
 
-## LED Strip Python Configuration
+## LED Strip Configuration File
 
-Update the configuration as needed in the **smartLights_server/led_config.py** file.
+Update the configuration as needed in the **smartLights_server/led_config.py** file. 
 In reality, you probably only need to change the LED_COUNT and can play around with the LED_BRIGHTNESS.
 
-https://github.com/johnnygoo321/SmartLights/blob/c1bf6539421efa0dc5d371eaf01bd7173e6b4270/smartLights_server/led_config.py#L1
+https://github.com/johnnygoo321/SmartLights/blob/491c97d671964ce35bc1f0f61a949e27319120fe/smartLights_server/led_config.py#L1C1-L8C69
+
+## Running the App (Locally)
+
+Now that we have the initial setup, let's run this thing! Althought this is a single project, it is best to run the backend in a virutal environment.
+This will help prevent package versioning issues across many projects.
+
+```
+sudo python3 -m venv venv
+source .venv/bin/activate
+```
+Start the backend server... First run pwd to get the working directory. We will use this to run the venv with root privledges.
+
+```
+pwd
+sudo 'your_pwd_here'/.venv/bin/python3 app.py
+```
+In a separate terminal start the frontend application (keep in mind you need to install expo on your mobile device to scan the QR code)
+
+```
+npx start expo
+```
