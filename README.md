@@ -41,9 +41,11 @@ For the frontend I used **Expo** which allows me to create a mobile app that wor
 
 (3) LED Strip Power Supply: [ALITOVE 5V 10A Adapter](https://www.amazon.com/dp/B0852HL336?ref=ppx_yo2ov_dt_b_product_details&th=1) - these work great with the strip.
 
-(4) Jumper Wires: [Haitronic Wires](https://www.amazon.com/gp/product/B01LZF1ZSZ/ref=ppx_yo_dt_b_asin_title_o06_s01?ie=UTF8&psc=1)
+(4) 12V DC Power Connector (Only need one Female Jack): [DAYKIT DC Power Connector](https://www.amazon.com/DAYKIT-Female-2-1x5-5MM-Adapter-Connector/dp/B01J1WZENK/ref=sr_1_10?crid=3SZBSSG1OAABR&keywords=female+dc+jack+connector&qid=1701313367&sprefix=female+dc+jack+cvonnector%2Caps%2C96&sr=8-10)
 
-(5) Micro SD Reader: With the command below, check which OS version your PI is running. If it is running as 32bit (armv7l), then we will need to upgrade to 64bit to run React Native.
+(5) Jumper Wires (Only need two Male to Female Wires): [Haitronic Wires](https://www.amazon.com/gp/product/B01LZF1ZSZ/ref=ppx_yo_dt_b_asin_title_o06_s01?ie=UTF8&psc=1)
+
+(6) Micro SD Reader (May be optional): With the command below, check which OS version your PI is running. If it is running as 32bit (armv7l), then we will need to upgrade to 64bit to run React Native.
 Ensure it can be upgraded to 64bit, then follow the tutorial here: [Raspberry Pi 64 bit install](https://www.youtube.com/watch?v=4_j5lcQEvG4)
 
 ```
