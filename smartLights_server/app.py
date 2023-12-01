@@ -1,13 +1,13 @@
-from flask import Flask
-from flask_restful import Resource, Api, reqparse
-from flask_cors import CORS
-from rpi_ws281x import Adafruit_NeoPixel, Color
-from dotenv import load_dotenv
 import os
 import time
 import random
 import neopixel
 import led_config as config
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
+from rpi_ws281x import Adafruit_NeoPixel, Color
+from dotenv import load_dotenv
 from adafruit_led_animation.animation.sparkle import Sparkle
 from adafruit_led_animation.animation.comet import Comet
 from adafruit_led_animation.animation.solid import Solid
@@ -118,7 +118,7 @@ class LedStrip(Resource):
             sparkle.animate()
 
     def comet(self, seconds, rgbValue):
-        """Comet animation across x amonut of pixels."""
+        """Comet animation across x amount of pixels."""
         comet = Comet(pixels, seconds, (rgbValue.red, rgbValue.green, rgbValue.blue), tail_length=18, bounce=True)
         runTimer = time.time() + 5.0
         while time.time() < runTimer:
@@ -133,7 +133,8 @@ class LedStrip(Resource):
 
             #Red, green, and blue will optionally come as arguments from the request body
             args = self.reqparse.parse_args()
-
+            print(args)
+            
             if(effect == "wipe"):
                 self.colorWipe(config.LED_SECONDS, Color(args.red, args.green, args.blue))
             
