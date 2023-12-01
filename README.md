@@ -19,7 +19,7 @@ You will notice in my backend app.py file, two NeoPixel Objects were instantiate
 ### **Custom Controller:**
 You can definitely add customizations, tweak things, and optimize as much as you want. This is a base controller I have hooked up.
 
-<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/1f3e94bb-e9ae-4045-a083-939a74ec92b3" width="500" height="875">
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/1f3e94bb-e9ae-4045-a083-939a74ec92b3" width="250" height="475">
 
 ## Table of Contents:
 
