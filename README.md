@@ -114,7 +114,7 @@ pip3 install requirements.txt
 ## LED Strip Configuration File
 
 Update the configuration as needed in the **smartLights_server/led_config.py** file. 
-In reality, you probably only need to change the LED_COUNT and can play around with the LED_BRIGHTNESS.
+In reality, you probably only need to change the LED_COUNT and can play around with the LED_BRIGHTNESS / LED_BRIGHTNESS_ANIMATION_LIB.
 
 ```python
 import board
@@ -149,7 +149,7 @@ PORT=5000
 
 ## Running the App (Locally)
 
-Now that we have the initial setup, let's run this thing! Althought this is a single project, it is best to run the backend in a virutal environment.
+Now that we have the initial setup, let's run this thing! Althought this is a single project, it is best to run the backend in a virtual environment.
 This will help prevent package versioning issues across many projects.
 
 ```
@@ -162,7 +162,8 @@ Start the backend server... First run pwd to get the working directory. We will 
 pwd
 sudo 'your_pwd_here'/.venv/bin/python3 app.py
 ```
-In a separate terminal start the frontend application (keep in mind you need to install expo on your mobile device to scan the QR code)
+In a separate terminal start the frontend application (keep in mind you need to install expo on your mobile device to scan the QR code).
+Also be sure your PI and mobile device are running under the same network.
 
 ```
 npx expo start
