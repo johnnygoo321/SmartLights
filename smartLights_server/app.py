@@ -11,7 +11,6 @@ from dotenv import load_dotenv
 from adafruit_led_animation.animation.sparkle import Sparkle
 from adafruit_led_animation.animation.comet import Comet
 from adafruit_led_animation.animation.solid import Solid
-from adafruit_led_animation.sequence import AnimationSequence
 
 app = Flask(__name__)
 CORS(app)
@@ -36,8 +35,8 @@ class LedStrip(Resource):
             solid = Solid(pixels, (0, 0, 0))
             solid.animate()
 
-### -- The following effects came from the Core Electronics strandtest.py: https://github.com/rpi-ws281x/rpi-ws281x-python/blob/master/examples/strandtest.py 
-### -- Modifications to the logic have been made as part of this project and additional customizations have been added
+### -- Several of the effects below came from the Core Electronics strandtest.py: https://github.com/rpi-ws281x/rpi-ws281x-python/blob/master/examples/strandtest.py 
+### -- Modifications to the logic have been made as part of this project and additional animations have been added via the Adafruit animation library https://docs.circuitpython.org/projects/led-animation/en/latest/index.html
 
     def colorWipe(self, seconds, color=None, type=None):        
         """Wipe color across display a pixel at a time."""
@@ -171,10 +170,10 @@ api.add_resource(LedStrip, '/clear', '/<string:effect>', '/<string:effect>/<stri
 
 if __name__ == '__main__':
 
-    #NeoPixel instance - references LED Strip via the AdaFruit animation library
+    #NeoPixel instance - references Adafruit CircuitPython Animation library
     pixels = neopixel.NeoPixel(config.LED_PIN_ANIMATION_LIB, config.LED_COUNT, brightness=config.LED_BRIGHTNESS_ANIMATION_LIB, auto_write=False)
 
-    #Instantiating another NeoPixel Object - references LED Strip - allows for ease with creating your own animations
+    #Instantiating another NeoPixel Object - references Adafruit NeoPixel library
     strip = Adafruit_NeoPixel(config.LED_COUNT, config.LED_PIN, config.LED_FREQ_HZ, config.LED_DMA, config.LED_INVERT, config.LED_BRIGHTNESS, config.LED_CHANNEL)
         
     #Initalize NeoPixel Object
