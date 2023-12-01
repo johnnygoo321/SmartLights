@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Dimensions, View } from "react-native";
+import { Dimensions, View, FlatList } from "react-native";
 import { ColorPicker, fromHsv } from "react-native-color-picker";
 import { IPV4_ADDRESS_OF_PI, SERVER_PORT } from "@env";
-import Toast, { BaseToast } from "react-native-toast-message";
+import Toast from "react-native-toast-message";
+import ToastConfig from "../configurations/toastConfig";
 import axios from "axios";
 import Slider from "@react-native-community/slider";
 import hexRgb from "hex-rgb";
@@ -11,8 +12,22 @@ import RoundedButton from "../buttons/RoundedButton";
 const { width, height } = Dimensions.get("window");
 
 const SmartLights = () => {
+  //State referencing current color of strip and if an animation is currently in effect
   const [rgbValue, setRgbValue] = useState({ red: 255, green: 118, blue: 0 });
   const [loading, setLoadingState] = useState(false);
+
+  //Different animation effects, this list can be expanded to include many more animations
+  const effects = [
+    { effect: "wipe" },
+    { effect: "comet" },
+    { effect: "rainbow" },
+    { effect: "rainbowCycle" },
+    { effect: "sparkle" },
+    { effect: "theaterChase" },
+    { effect: "theaterChaseRainbow" },
+    { effect: "randomize" },
+    { effect: "off" },
+  ];
 
   const configureLedStrip = async (endpoint) => {
     let baseUrl = IPV4_ADDRESS_OF_PI + ":" + SERVER_PORT + "/" + endpoint,
@@ -57,66 +72,14 @@ const SmartLights = () => {
       );
   };
 
-  const toastConfig = {
-    success: ({ text1, text2, ...rest }) => (
-      <BaseToast
-        {...rest}
-        style={{ borderLeftColor: "lightgreen", backgroundColor: "#fff" }}
-        contentContainerStyle={{ paddingHorizontal: 15 }}
-        text1Style={{
-          fontSize: width / 22,
-        }}
-        text2Style={{
-          color: "#000",
-          fontSize: width / 25,
-        }}
-        text1={text1}
-        text2={text2}
-      />
-    ),
-    error: ({ text1, text2, ...rest }) => (
-      <BaseToast
-        {...rest}
-        style={{ borderLeftColor: "red", backgroundColor: "#fff" }}
-        contentContainerStyle={{ paddingHorizontal: 15 }}
-        text1Style={{
-          fontSize: width / 22,
-        }}
-        text2Style={{
-          color: "#000",
-          fontSize: width / 25,
-        }}
-        text1={text1}
-        text2={text2}
-      />
-    ),
-    info: ({ text1, text2, ...rest }) => (
-      <BaseToast
-        {...rest}
-        style={{ borderLeftColor: "#FF9900", backgroundColor: "#fff" }}
-        contentContainerStyle={{ paddingHorizontal: 15 }}
-        text1Style={{
-          fontSize: width / 22,
-        }}
-        text2Style={{
-          color: "#000",
-          fontSize: width / 25,
-        }}
-        text1={text1}
-        text2={text2}
-      />
-    ),
-  };
-
   return (
-    <View pointerEvents={loading}>
+    <View style={{ flex: 1, alignItems: "center" }} pointerEvents={loading}>
       <View style={{ zIndex: 1 }}>
-        <Toast config={toastConfig} />
+        <Toast config={ToastConfig} />
       </View>
       <View
         style={{
           zIndex: 0,
-          alignItems: "center",
         }}
       >
         <ColorPicker
@@ -125,36 +88,22 @@ const SmartLights = () => {
           defaultColor={"orange"}
           onColorSelected={() => configureLedStrip("noEffect")}
           onColorChange={(color) => setRgbValue(hexRgb(fromHsv(color)))}
-          style={{ width: width, height: height / 2.3 }}
+          style={{ width: width, height: height / 2.4 }}
         />
-        <RoundedButton
-          onPress={() => configureLedStrip("wipe")}
-          buttonText="Wipe"
-        ></RoundedButton>
-        <RoundedButton
-          onPress={() => configureLedStrip("rainbow")}
-          buttonText="Rainbow"
-        ></RoundedButton>
-        <RoundedButton
-          onPress={() => configureLedStrip("rainbowCycle")}
-          buttonText="Rainbow Cycle"
-        ></RoundedButton>
-        <RoundedButton
-          onPress={() => configureLedStrip("theaterChase")}
-          buttonText="Theater Chase"
-        ></RoundedButton>
-        <RoundedButton
-          onPress={() => configureLedStrip("theaterChaseRainbow")}
-          buttonText="Theater Chase Rainbow"
-        ></RoundedButton>
-        <RoundedButton
-          onPress={() => configureLedStrip("randomize")}
-          buttonText="Randomize"
-        ></RoundedButton>
-        <RoundedButton
-          onPress={() => configureLedStrip("clear")}
-          buttonText="Off"
-        ></RoundedButton>
+      </View>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={effects}
+          renderItem={({ item }) => (
+            <RoundedButton
+              onPress={() => configureLedStrip(item.effect)}
+              buttonText={
+                item.effect.charAt(0).toUpperCase() + item.effect.slice(1)
+              }
+            ></RoundedButton>
+          )}
+          keyExtractor={(item) => item.effect}
+        />
       </View>
     </View>
   );

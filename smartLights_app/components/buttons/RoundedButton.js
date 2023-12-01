@@ -5,10 +5,7 @@ const { width, height } = Dimensions.get("screen");
 
 export default RoundedButton = ({ onPress, buttonText }) => {
   return (
-    <TouchableOpacity
-      style={[styles.buttonStyle, { backgroundColor: "#1C1D2B" }]}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={styles.buttonStyle} onPress={onPress}>
       <Text style={styles.textStyle}>{buttonText}</Text>
     </TouchableOpacity>
   );
@@ -17,12 +14,13 @@ export default RoundedButton = ({ onPress, buttonText }) => {
 const styles = StyleSheet.create({
   buttonStyle: {
     width: width / 1.2,
-    height: height / 23,
+    height: height / 25,
     borderRadius: 30,
     borderColor: "#fff",
+    backgroundColor: "#1C1D2B",
     borderWidth: 2,
     padding: 5,
-    margin: 8,
+    margin: 7,
   },
   textStyle: {
     textAlign: "center",
