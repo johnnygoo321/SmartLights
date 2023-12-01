@@ -6,19 +6,18 @@
 
 ### **Background:**
 
-This project was created with the purpose of locally being able to control an addressable led strip through a Raspberry Pi. We could of used a WLED controller to make things a bit easier, but as a challenge I decided to create my own full stack app 😅.
+This project was created with the purpose of locally being able to control an addressable led strip through a Raspberry Pi. We could of used a WLED controller to make things a bit easier, but as a challenge I decided to create my own full stack application 😅.
 
 ### **Tech Stack:**
-
-For the frontend I used **Expo** which allows me to create a mobile app that works with both IOS and Android all through JavaScript. With the backend, **Flask-RESTFul** was used to service any requests made from the app.
+For the frontend I used **Expo** which allows you to create a mobile app that works with both IOS and Android all through JavaScript. With the backend, **Flask-RESTFul** was used to service any requests made from the app.
+You will notice in my backend app.py file, two NeoPixel Objects were instantiated to interact with the lights. The reason for this is to show the use of both the [Adafruit CircuitPython Animation Library](https://learn.adafruit.com/circuitpython-led-animations/overview) and the [Adafruit Neopixel Library](https://github.com/adafruit/Adafruit_NeoPixel).
 
 ### **Working Demo:**
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/bab72fff-a247-4abb-aa19-6c3d23fe74a9" width="500" height="350">
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/3c6a1bae-574d-44b4-990e-2cd22ec82630" width="500" height="350">
 
-...insert image...
-
-...insert image...
-
-...insert image...
+### **Custom Controller:**
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/1f3e94bb-e9ae-4045-a083-939a74ec92b3" width="500" height="1000">
 
 ## Table of Contents:
 
@@ -53,7 +52,6 @@ uname -m
 ```
 
 ## Design
-
 ... insert image...
 
 ## Cloning the Repo & Getting Started
@@ -99,6 +97,8 @@ Update the configuration as needed in the **smartLights_server/led_config.py** f
 In reality, you probably only need to change the LED_COUNT and can play around with the LED_BRIGHTNESS.
 
 ```python
+import board
+
 # LED STRIP DEFAULT CONFIGURATION
 LED_COUNT      = 300     # Number of LED's.
 LED_PIN        = 18      # GPIO PWM pin connected to the pixels.
@@ -107,6 +107,9 @@ LED_DMA        = 10      # DMA channel to use for generating a signal (try 10)
 LED_BRIGHTNESS = 25      # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
+LED_SECONDS    = 0.01    # Speed it takes to light up a single LED
+LED_BRIGHTNESS_ANIMATION_LIB = 0.5 # Brightness range for the Adafruit Animation Library is 0 to 1
+LED_PIN_ANIMATION_LIB = board.D18  # Animation Library Pin
 ```
 
 On top of that, you are going to want to create a .env file in the root of the smartLights_app and smartLights_server folders
@@ -142,7 +145,7 @@ sudo 'your_pwd_here'/.venv/bin/python3 app.py
 In a separate terminal start the frontend application (keep in mind you need to install expo on your mobile device to scan the QR code)
 
 ```
-npx start expo
+npx expo start
 ```
 Now you can interact with the lights through your mobile device!
 
