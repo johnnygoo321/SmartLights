@@ -17,6 +17,8 @@ You will notice in my backend app.py file, two NeoPixel Objects were instantiate
 <img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/3c6a1bae-574d-44b4-990e-2cd22ec82630" width="500" height="350">
 
 ### **Custom Controller:**
+You can definitely add customizations, tweak things, and optimize as much as you want. This is a base controller I have hooked up.
+
 <img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/1f3e94bb-e9ae-4045-a083-939a74ec92b3" width="500" height="1000">
 
 ## Table of Contents:
@@ -50,10 +52,28 @@ Ensure it can be upgraded to 64bit, then follow the tutorial here: [Raspberry Pi
 ```
 uname -m
 ```
-
 ## Design
-... insert image...
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/96fb42c7-1069-4dcc-bf86-b3671301c7f0" width="500" height="350"><br>
 
+I am not using a Level Shifter, refer to the [Adafruit documentation](https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring#using-external-power-source-without-level-shifting-3005993) for more on this.
+It is important to have an external power supply that is able to power the LEDs (5V 10A in this case to power 300 LEDs).
+
+**BEFORE POWERING ANYTHING ON**
+
+Here is a YouTube walkthrough I really like, go to the section [Assembly For Long LED Strip](https://www.youtube.com/watch?v=aNlaj1r7NKc&t=188s).
+Refer back to the bullets below to cross check that you have covered everything.
+
+- Connect a Female to Male jumper wire to both GPIO pin 18 and a Ground pin on your PI.
+- Insert the Male end of the Ground jumper wire to the Ground Connection of the LED Strip (your strip will indicate which wire is Ground (GND) normally white).
+- Insert the Male end of the GPIO pin 18 jumper wire to the data connection of the LED Strip (your strip will indicate which wire is Data (DIN) normally green).
+- **Note with the next step you will first need to use something like a wire stripper to expose the positive and ground connections before connecting it to the Female Jack**
+- With the red and white (postive/ground) wires coming out from the strip (reference the image above), connect the red +5V connection to the positive mark on the Female Connector Jack and white GND to negative mark on the Jack.
+- Connect the 5V 10A Power Supply (which is what I used to power 300 leds) to the Female Jack.
+- Connect the separate PI USBC power cord into the PI.
+
+You should now have a reflection of the image above. Be careful with your connections, and double check everything. You don't want to short your lights lol.<br><br>
+[Guide on understanding the White, Red, and Green LED Strip connections.](https://learn.sparkfun.com/tutorials/ws2812-breakout-hookup-guide/addressable-led-strips#pinout)
+  
 ## Cloning the Repo & Getting Started
 
 **For this you can either connect to the PI and use the terminal from there or SSH (much easier) into it.**
