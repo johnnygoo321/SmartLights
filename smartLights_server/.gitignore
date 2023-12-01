@@ -1,7 +1,0 @@
-#Byte Code
-__pycache__/
-
-#Environment
-.venv/
-.env*.local
-.env
