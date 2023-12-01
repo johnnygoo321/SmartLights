@@ -6,19 +6,20 @@
 
 ### **Background:**
 
-This project was created with the purpose of locally being able to control an addressable led strip through a Raspberry Pi. We could of used a WLED controller to make things a bit easier, but as a challenge I decided to create my own full stack app 😅.
+This project was created with the purpose of locally being able to control an addressable led strip through a Raspberry Pi. We could of used a WLED controller to make things a bit easier, but as a challenge I decided to create my own full stack application 😅.
 
 ### **Tech Stack:**
-
-For the frontend I used **Expo** which allows me to create a mobile app that works with both IOS and Android all through JavaScript. With the backend, **Flask-RESTFul** was used to service any requests made from the app.
+For the frontend I used **Expo** which allows you to create a mobile app that works with both IOS and Android all through JavaScript. With the backend, **Flask-RESTFul** was used to service any requests made from the app.
+You will notice in my backend app.py file, two NeoPixel Objects were instantiated to interact with the lights. The reason for this is to show the use of both the [Adafruit CircuitPython Animation Library](https://learn.adafruit.com/circuitpython-led-animations/overview) and the [Adafruit Neopixel Library](https://github.com/adafruit/Adafruit_NeoPixel).
 
 ### **Working Demo:**
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/bab72fff-a247-4abb-aa19-6c3d23fe74a9" width="500" height="350">
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/3c6a1bae-574d-44b4-990e-2cd22ec82630" width="500" height="350">
 
-...insert image...
+### **Custom Controller:**
+You can definitely add customizations, tweak things, and optimize as much as you want. This is a base controller I have hooked up.
 
-...insert image...
-
-...insert image...
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/1f3e94bb-e9ae-4045-a083-939a74ec92b3" width="500" height="875">
 
 ## Table of Contents:
 
@@ -51,11 +52,28 @@ Ensure it can be upgraded to 64bit, then follow the tutorial here: [Raspberry Pi
 ```
 uname -m
 ```
-
 ## Design
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/96fb42c7-1069-4dcc-bf86-b3671301c7f0" width="500" height="350"><br>
 
-... insert image...
+I am not using a Level Shifter, refer to the [Adafruit documentation](https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring#using-external-power-source-without-level-shifting-3005993) for more on this.
+It is important to have an external power supply that is able to power the LEDs (5V 10A in this case to power 300 LEDs).
 
+**BEFORE POWERING ANYTHING ON**
+
+Here is a YouTube walkthrough I really like, go to the section [Assembly For Long LED Strip](https://www.youtube.com/watch?v=aNlaj1r7NKc&t=188s).
+Refer back to the bullets below to cross check that you have covered everything.
+
+- Connect a Female to Male jumper wire to both GPIO pin 18 and a Ground pin on your PI.
+- Insert the Male end of the Ground jumper wire to the Ground Connection of the LED Strip (your strip will indicate which wire is Ground (GND) normally white).
+- Insert the Male end of the GPIO pin 18 jumper wire to the data connection of the LED Strip (your strip will indicate which wire is Data (DIN) normally green).
+- **Note with the next step you will first need to use something like a wire stripper to expose the positive and ground connections before connecting it to the Female Jack**
+- With the red and white (postive/ground) wires coming out from the strip (reference the image above), connect the red +5V connection to the positive mark on the Female Connector Jack and white GND to negative mark on the Jack.
+- Connect the 5V 10A Power Supply (which is what I used to power 300 leds) to the Female Jack.
+- Connect the separate PI USBC power cord into the PI.
+
+You should now have a reflection of the image above. Be careful with your connections, and double check everything. You don't want to short your lights lol.<br><br>
+[Guide on understanding the White, Red, and Green LED Strip connections.](https://learn.sparkfun.com/tutorials/ws2812-breakout-hookup-guide/addressable-led-strips#pinout)
+  
 ## Cloning the Repo & Getting Started
 
 **For this you can either connect to the PI and use the terminal from there or SSH (much easier) into it.**
@@ -96,9 +114,11 @@ pip3 install requirements.txt
 ## LED Strip Configuration File
 
 Update the configuration as needed in the **smartLights_server/led_config.py** file. 
-In reality, you probably only need to change the LED_COUNT and can play around with the LED_BRIGHTNESS.
+In reality, you probably only need to change the LED_COUNT and can play around with the LED_BRIGHTNESS / LED_BRIGHTNESS_ANIMATION_LIB.
 
 ```python
+import board
+
 # LED STRIP DEFAULT CONFIGURATION
 LED_COUNT      = 300     # Number of LED's.
 LED_PIN        = 18      # GPIO PWM pin connected to the pixels.
@@ -107,6 +127,9 @@ LED_DMA        = 10      # DMA channel to use for generating a signal (try 10)
 LED_BRIGHTNESS = 25      # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
+LED_SECONDS    = 0.01    # Speed it takes to light up a single LED
+LED_BRIGHTNESS_ANIMATION_LIB = 0.5 # Brightness range for the Adafruit Animation Library is 0 to 1
+LED_PIN_ANIMATION_LIB = board.D18  # Animation Library Pin
 ```
 
 On top of that, you are going to want to create a .env file in the root of the smartLights_app and smartLights_server folders
@@ -126,7 +149,7 @@ PORT=5000
 
 ## Running the App (Locally)
 
-Now that we have the initial setup, let's run this thing! Althought this is a single project, it is best to run the backend in a virutal environment.
+Now that we have the initial setup, let's run this thing! Althought this is a single project, it is best to run the backend in a virtual environment.
 This will help prevent package versioning issues across many projects.
 
 ```
@@ -139,10 +162,11 @@ Start the backend server... First run pwd to get the working directory. We will 
 pwd
 sudo 'your_pwd_here'/.venv/bin/python3 app.py
 ```
-In a separate terminal start the frontend application (keep in mind you need to install expo on your mobile device to scan the QR code)
+In a separate terminal start the frontend application (keep in mind you need to install expo on your mobile device to scan the QR code).
+Also be sure your PI and mobile device are running under the same network.
 
 ```
-npx start expo
+npx expo start
 ```
 Now you can interact with the lights through your mobile device!
 
