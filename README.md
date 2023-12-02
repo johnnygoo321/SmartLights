@@ -9,7 +9,7 @@
 This project was created with the purpose of locally being able to control an addressable led strip through a Raspberry Pi. We could of used a WLED controller to make things a bit easier, but as a challenge I decided to create my own full stack application 😅.
 
 ### **Tech Stack:**
-For the frontend I used **Expo** which allows you to create a mobile app that works with both IOS and Android all through JavaScript. With the backend, **Flask-RESTFul** was used to service any requests made from the app.
+For the frontend I used **Expo** which allows you to create a mobile app that works with both IOS and Android all through JavaScript. Also, through a QR code, you can locally run the app straight from your mobile device. With the backend, **Flask-RESTFul** was used to service any requests made from the app.
 You will notice in my backend app.py file, two NeoPixel Objects were instantiated to interact with the lights. The reason for this is to show the use of both the [Adafruit CircuitPython Animation Library](https://learn.adafruit.com/circuitpython-led-animations/overview) and the [Adafruit Neopixel Library](https://github.com/adafruit/Adafruit_NeoPixel).
 
 ### **Working Demo:**
@@ -149,6 +149,8 @@ PORT=5000
 
 ## Running the App (Locally)
 
+If there are any issues executing these steps or potentially missing steps let me know through a Pull Request or DM me on Instagram [@johnnycodes_](https://www.instagram.com/johnnycodes_/).
+
 Now that we have the initial setup, let's run this thing! Althought this is a single project, it is best to run the backend in a virtual environment.
 This will help prevent package versioning issues across many projects.
 
@@ -162,7 +164,7 @@ Start the backend server... First run pwd to get the working directory. We will 
 pwd
 sudo 'your_pwd_here'/.venv/bin/python3 app.py
 ```
-In a separate terminal start the frontend application (keep in mind you need to install expo on your mobile device to scan the QR code).
+In a separate terminal start the frontend application (keep in mind you need to install the Expo Go app on your mobile device to scan the QR code).
 Also be sure your PI and mobile device are running under the same network.
 
 ```
@@ -171,7 +173,7 @@ npx expo start
 Now you can interact with the lights through your mobile device!
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/johnnygoo321/SmartLights/blob/73180602de507baa635b0abe68ac369f08fd7ed6/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/johnnygoo321/SmartLights/blob/73180602de507baa635b0abe68ac369f08fd7ed6/LICENSE.md){:target="_blank"} file for details.
 
 ## Found an issue
 If you have found an issue, please feel free to raise a Pull Request 😊.
