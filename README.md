@@ -173,7 +173,7 @@ npx expo start
 Now you can interact with the lights through your mobile device!
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/johnnygoo321/SmartLights/blob/73180602de507baa635b0abe68ac369f08fd7ed6/LICENSE.md){:target="_blank"} file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/johnnygoo321/SmartLights/blob/73180602de507baa635b0abe68ac369f08fd7ed6/LICENSE.md) file for details.
 
 ## Found an issue
 If you have found an issue, please feel free to raise a Pull Request 😊.
