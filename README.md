@@ -13,8 +13,8 @@ For the frontend I used **Expo** which allows you to create a mobile app that wo
 You will notice in my backend app.py file, two NeoPixel Objects were instantiated to interact with the lights. The reason for this is to show the use of both the [Adafruit CircuitPython Animation Library](https://learn.adafruit.com/circuitpython-led-animations/overview) and the [Adafruit Neopixel Library](https://github.com/adafruit/Adafruit_NeoPixel).
 
 ### **Working Demo:**
-<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/bab72fff-a247-4abb-aa19-6c3d23fe74a9" width="500" height="350">
-<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/3c6a1bae-574d-44b4-990e-2cd22ec82630" width="500" height="350">
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/bab72fff-a247-4abb-aa19-6c3d23fe74a9" width="350" height="250">
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/3c6a1bae-574d-44b4-990e-2cd22ec82630" width="350" height="250">
 
 ### **Custom Controller:**
 You can definitely add customizations, tweak things, and optimize as much as you want. This is a base controller I have hooked up.
@@ -53,7 +53,7 @@ Ensure it can be upgraded to 64bit, then follow the tutorial here: [Raspberry Pi
 uname -m
 ```
 ## Design
-<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/96fb42c7-1069-4dcc-bf86-b3671301c7f0" width="500" height="350"><br>
+<img src="https://github.com/johnnygoo321/SmartLights/assets/55931717/96fb42c7-1069-4dcc-bf86-b3671301c7f0" width="375" height="275"><br>
 
 I am not using a Level Shifter, refer to the [Adafruit documentation](https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring#using-external-power-source-without-level-shifting-3005993) for more on this.
 It is important to have an external power supply that is able to power the LEDs (5V 10A in this case to power 300 LEDs).
@@ -177,4 +177,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 If you have found an issue, please feel free to raise a Pull Request 😊.
 
 ## Have a question
-Hit me up on Instagram [@johnnycodes_](https://www.instagram.com/johnnycodes_/)
+Hit me up on Instagram [@johnnycodes_](https://www.instagram.com/johnnycodes_/).
