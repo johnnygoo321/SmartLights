@@ -41,7 +41,6 @@ class LedStrip(Resource):
     def colorWipe(self, seconds, color=None, type=None):        
         """Wipe color across display a pixel at a time."""
         for i in range(300):
-            color = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)) if type == 'randomize' else color
             strip.setPixelColor(i, color)
             strip.show()
             time.sleep(seconds)
@@ -55,6 +54,7 @@ class LedStrip(Resource):
     def randomize(self):
         """Randomize color across all pixels at the same time."""        
         for i in range(300):
+            print(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             color = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             strip.setPixelColor(i, color)
         strip.show()
@@ -64,7 +64,6 @@ class LedStrip(Resource):
         for j in range(iterations):
             for q in range(3):
                 for i in range(0, strip.numPixels(), 3):
-                    color = Color(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)) if type == 'randomize' else color
                     strip.setPixelColor(i+q, color)
                 strip.show()
                 time.sleep(seconds)
@@ -112,14 +111,14 @@ class LedStrip(Resource):
     def sparkle(self, seconds, rgbValue):
         """Sparkle animation across the different pixels."""
         sparkle = Sparkle(pixels, seconds, (rgbValue.red, rgbValue.green, rgbValue.blue), num_sparkles=10)   
-        runTimer = time.time() + 5.0
+        runTimer = time.time() + 3.0
         while time.time() < runTimer:
             sparkle.animate()
 
     def comet(self, seconds, rgbValue):
         """Comet animation across x amount of pixels."""
         comet = Comet(pixels, seconds, (rgbValue.red, rgbValue.green, rgbValue.blue), tail_length=18, bounce=True)
-        runTimer = time.time() + 5.0
+        runTimer = time.time() + 3.0
         while time.time() < runTimer:
             comet.animate()
 
