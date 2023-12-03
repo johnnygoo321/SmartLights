@@ -78,13 +78,9 @@ You should now have a reflection of the image above. Be careful with your connec
 
 **For this you can either connect to the PI and use the terminal from there or SSH (much easier) into it.**
 
+If there are any issues executing these steps or potentially missing steps let me know through a Pull Request or DM me on Instagram [@johnnycodes_](https://www.instagram.com/johnnycodes_/).
+
 I will assume git, python, pip, node, and npm are already installed on your PI.
-
-Install React Native Expo:
-
-```
-npm install expo
-```
 
 Clone the Repo
 
