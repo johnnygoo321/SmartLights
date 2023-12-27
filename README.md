@@ -1,8 +1,6 @@
-# SmartLights
+## 👋 Welcome to the SmartLights app!
 
-👋 Welcome to the Smart Lights app!
-
-**Creator:** [@johnnycodes_](https://www.instagram.com/johnnycodes_/)
+### **Creator:** [@johnnycodes_](https://www.instagram.com/johnnycodes_/)
 
 ### **Background:**
 
